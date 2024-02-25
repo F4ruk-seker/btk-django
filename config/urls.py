@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from config.settings.base import env
 
 
 urlpatterns = [
     path('admin/' if settings.DEBUG else env('PRODUCT_ADMIN_PATH'), admin.site.urls),
+    path('product/', include('product.urls'))
+
 ]

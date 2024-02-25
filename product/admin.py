@@ -20,7 +20,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductImageInline(admin.TabularInline):
     model = Images
     extra = 5
-    readonly_fields = ['image_tag']
+    readonly_fields = 'image_tag',
 
 
 @admin.register(Product)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category
+from .models import Category, Product
 
 
 # admin.site.register(Category)
@@ -16,3 +16,9 @@ class CategoryAdmin(admin.ModelAdmin):
     # ordering = ['']
     #
 
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = 'title', 'status'
+    list_filter = 'status',
+    prepopulated_fields = {'slug': ('title',)}

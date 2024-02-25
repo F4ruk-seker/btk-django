@@ -17,17 +17,25 @@ class CategoryAdmin(admin.ModelAdmin):
     #
 
 
+class ProductImageInline(admin.TabularInline):
+    model = Images
+    extra = 5
+    readonly_fields = ['image_tag']
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = 'title', 'status', 'image_tag'
     list_filter = 'status', 'category'
     readonly_fields = 'image_tag',
-    # inlines = ProductImageInline
+    inlines = ProductImageInline,
     prepopulated_fields = {'slug': ('title',)}
 
 
 @admin.register(Images)
 class ImagesAdmin(admin.ModelAdmin):
-    list_display = 'title', 'image_tag'
+    list_display = 'title', 'product', 'image_tag'
     readonly_fields = 'image_tag',
+
+
 

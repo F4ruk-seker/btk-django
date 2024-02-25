@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.safestring import mark_safe
 
 
 class Product(models.Model):
@@ -21,6 +22,11 @@ class Product(models.Model):
 
     slug = models.SlugField(unique=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def image_tag(self):
+        return mark_safe('<img src="{}" width="50px" height="50px" style="object-fit:cover;">'.format(self.image.url))
+
+
 
     def __str__(self):
         return self.title

@@ -19,6 +19,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = 'title', 'status'
-    list_filter = 'status',
+    list_display = 'title', 'status', 'image_tag'
+    list_filter = 'status', 'category'
+    readonly_fields = 'image_tag',
+    # inlines = ProductImageInline
     prepopulated_fields = {'slug': ('title',)}
+

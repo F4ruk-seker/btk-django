@@ -25,4 +25,5 @@ urlpatterns = [
     path('admin/' if settings.DEBUG else env('PRODUCT_ADMIN_PATH'), admin.site.urls),
     path('product/', include('product.urls'))
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) if settings.DEBUG else []
+

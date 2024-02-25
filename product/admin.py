@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product
+from .models import Category, Product, Images
 
 
 # admin.site.register(Category)
@@ -24,4 +24,10 @@ class ProductAdmin(admin.ModelAdmin):
     readonly_fields = 'image_tag',
     # inlines = ProductImageInline
     prepopulated_fields = {'slug': ('title',)}
+
+
+@admin.register(Images)
+class ImagesAdmin(admin.ModelAdmin):
+    list_display = 'title', 'image_tag'
+    readonly_fields = 'image_tag',
 

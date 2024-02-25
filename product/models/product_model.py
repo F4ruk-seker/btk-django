@@ -26,7 +26,7 @@ class Product(models.Model):
     def image_tag(self):
         return mark_safe('<img src="{}" width="50px" height="50px" style="object-fit:cover;">'.format(self.image.url))
 
-
+    image_tag.short_description = 'Image'
 
     def __str__(self):
         return self.title

@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField, RichTextFormField
 
 
 class Settings(models.Model):
@@ -22,9 +23,9 @@ class Settings(models.Model):
     instagram = models.CharField(blank=True, max_length=50)
     twitter = models.CharField(blank=True, max_length=50)
     youtube = models.CharField(blank=True, max_length=50)
-    aboutus = models.TextField()
-    contactus = models.TextField()
-    references = models.TextField()
+    aboutus = RichTextField(null=True,blank=True,default=None)
+    contactus = RichTextField(null=True,blank=True,default=None)
+    references = RichTextField(null=True,blank=True,default=None)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

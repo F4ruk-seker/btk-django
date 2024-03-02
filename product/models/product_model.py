@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
@@ -15,7 +16,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='images/', blank=True)
     price = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     amount = models.IntegerField(default=0)
-    details = models.TextField(blank=True)
+    details = RichTextField(null=True,blank=True,default=None)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

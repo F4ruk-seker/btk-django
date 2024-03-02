@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'home'
 ]+[
     # third party app
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -117,3 +119,13 @@ MEDIA_ROOT = BASE_DIR / 'uploads'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ckeditor
+
+CKEDITOR_UPLOAD_PATH = 'upload/images/'
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+
+# <script>alert(1)</script>
+

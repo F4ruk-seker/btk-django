@@ -15,6 +15,7 @@ class HomeView(TemplateView):
         context['page'] = self.get_page()
         # soru işareti random
         context['product_slider'] = Product.objects.order_by('?')[:4]
+        context['trending_products'] = Product.objects.order_by('?')
 
         return context
 

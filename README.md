@@ -1,4 +1,4 @@
-# Django Development Templates
+# BTK Django - 2024 izmir 
 
 ## Installation
 

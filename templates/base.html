@@ -10,6 +10,11 @@
 <body>
 {% block context %}
 {% endblock %}
+
+{% block footer %}
+    {% include '_partial/_footer.html' %}
+{% endblock %}
+
 {% include '_partial/_scripts.html' %}
 {% block scripts %}
 {% endblock %}

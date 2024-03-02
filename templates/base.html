@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% include '_meta.html' %}
-    {% include '_statics.html' %}
+    {% include '_partial/_meta.html' %}
+    {% include '_partial/_statics.html' %}
     {% load static %}
     {% block favicon %}<link href="{% static 'img/favicon.ico' %}" rel="icon">{% endblock %}
     {% block head %}{% endblock %}
@@ -10,7 +10,7 @@
 <body>
 {% block context %}
 {% endblock %}
-{% include '_scripts.html' %}
+{% include '_partial/_scripts.html' %}
 {% block scripts %}
 {% endblock %}
 </body>

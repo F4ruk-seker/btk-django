@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% include '_statics.html' %}
+    {% block extra_statics %}{% endblock %}
+</head>
+<body>
+{% block context %}
+{% endblock %}
+{% include '_scripts.html' %}
+{% block extra_scripts %}
+{% endblock %}
+</body>
+</html>

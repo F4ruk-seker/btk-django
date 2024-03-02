@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}</title>
+    {% include '_meta.html' %}
     {% include '_statics.html' %}
-    {% block extra_statics %}{% endblock %}
+    {% load static %}
+    {% block favicon %}<link href="{% static 'img/favicon.ico' %}" rel="icon">{% endblock %}
+    {% block head %}{% endblock %}
 </head>
 <body>
 {% block context %}
 {% endblock %}
 {% include '_scripts.html' %}
-{% block extra_scripts %}
+{% block scripts %}
 {% endblock %}
 </body>
 </html>

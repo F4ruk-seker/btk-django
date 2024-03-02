@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% include '_partial/_meta.html' %}
+    {% block meta %}
+        {% include 'meta.html' %}
+    {% endblock %}
     {% include '_partial/_statics.html' %}
     {% load static %}
     {% block favicon %}<link href="{% static 'img/favicon.ico' %}" rel="icon">{% endblock %}

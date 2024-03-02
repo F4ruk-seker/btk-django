@@ -3,6 +3,8 @@
 {% block context %}
 {% load static %}
 
+{% block favicon %}<link href="{{ page.icon.url }}" rel="icon">{% endblock %}
+
 {% include '_partial/topbar.html' %}
 {% include '_partial/navbar.html' %}
 {% include '_partial/featured.html' %}

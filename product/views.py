@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 from django.shortcuts import get_object_or_404
 from .models import Category, Product
 
@@ -13,3 +13,11 @@ class CategoryProductListView(TemplateView):
             context['products'] = Product.objects.filter(category=context['product_category'])
         return context
 
+
+class ProductDetailView(DetailView):
+    model = Product
+    lookup_url_kwarg = 'slug'
+    template_name = 'product_detail.html'
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)

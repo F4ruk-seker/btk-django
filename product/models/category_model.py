@@ -25,5 +25,16 @@ class Category(MPTTModel):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    # def __str__(self):
+    #     return self.title
+    
+    class MPTTMeta:
+        order_insertion_by: list = 'title',
+
     def __str__(self):
-        return self.title
+        full_path = [self.title]
+        k = self.parent
+        while k is not None:
+            full_path.append(k.title)
+            k = k.parent
+        return '/'.join(full_path)

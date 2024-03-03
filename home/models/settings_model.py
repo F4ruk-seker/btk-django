@@ -1,5 +1,5 @@
 from django.db import models
-from ckeditor.fields import RichTextField, RichTextFormField
+from ckeditor.fields import RichTextField
 
 
 class Settings(models.Model):

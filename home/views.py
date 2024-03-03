@@ -1,6 +1,8 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView
+from .forms import ContactForm
 from home.models import Settings
 from product.models import Product
+from django.urls import reverse
 
 
 class HomeView(TemplateView):
@@ -12,7 +14,6 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['page'] = self.get_page()
         # soru işareti random
         context['product_slider'] = Product.objects.order_by('?')[:4]
         context['trending_products'] = Product.objects.order_by('?')
@@ -23,24 +24,19 @@ class HomeView(TemplateView):
 class AboutView(TemplateView):
     template_name = 'aboutus.html'
 
-    @staticmethod
-    def get_page():
-        return Settings.objects.first()
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['page'] = self.get_page()
-        return context
-
-
-class ContactView(TemplateView):
+class ContactView(FormView):
     template_name = 'contact.html'
+    form_class = ContactForm
 
-    @staticmethod
-    def get_page():
-        return Settings.objects.first()
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.ip = 'test'
+            form.save()
+        return super().post(request, *args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['page'] = self.get_page()
-        return context
+    def get_success_url(self):
+        return reverse('contact_page')
+

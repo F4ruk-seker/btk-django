@@ -1,8 +1,9 @@
-from django.urls import path, include
-from django.shortcuts import HttpResponse
+from django.urls import path
+from . import views
 
 
 urlpatterns: list = [
-    # path("", ProductsView.as_view(), name=" ")
+    # path("<slug>/", views.CategoryProductListView.as_view(), name="category-product-list")
+    path("<slug>/", views.CategoryProductListView.as_view(), name="category-product-list")
 ]
 

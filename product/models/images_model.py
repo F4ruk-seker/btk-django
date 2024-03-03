@@ -1,11 +1,9 @@
 from django.db import models
 from django.utils.safestring import mark_safe
 
-from product.models import Product
-
 
 class Images(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey('product.Product', on_delete=models.CASCADE)
     image = models.ImageField(blank=True, upload_to='images')
     title = models.CharField(max_length=50)
 

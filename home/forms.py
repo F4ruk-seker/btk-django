@@ -25,3 +25,7 @@ class ContactForm(forms.ModelForm):
                                        'data-validation-required-message': "Please enter your message"}),
             }
 
+
+class SearchForm(forms.Form):
+    search = forms.CharField(max_length=100, widget=forms.TextInput())
+

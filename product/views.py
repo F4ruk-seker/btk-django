@@ -18,6 +18,3 @@ class ProductDetailView(DetailView):
     model = Product
     lookup_url_kwarg = 'slug'
     template_name = 'product_detail.html'
-
-    def get_context_data(self, **kwargs):
-        return super().get_context_data(**kwargs)

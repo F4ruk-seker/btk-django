@@ -2,6 +2,7 @@ from ckeditor.fields import RichTextField
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
+from .images_model import Images
 
 
 class Product(models.Model):
@@ -23,6 +24,10 @@ class Product(models.Model):
 
     slug = models.SlugField(unique=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    @property
+    def images_gallery(self):
+        return Images.objects.filter(product=self)
 
     def image_tag(self):
         return mark_safe('<img src="{}" width="50px" height="50px" style="object-fit:cover;">'.format(self.image.url))

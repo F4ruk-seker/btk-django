@@ -1,8 +1,9 @@
 from django.views.generic import TemplateView, FormView
-from .forms import ContactForm
+from django.urls import reverse
+from django.contrib import messages
 from home.models import Settings
 from product.models import Product
-from django.urls import reverse
+from .forms import ContactForm
 
 
 class HomeView(TemplateView):
@@ -35,6 +36,7 @@ class ContactView(FormView):
             obj = form.save(commit=False)
             obj.ip = 'test'
             form.save()
+            messages.success(request, 'Saved successfully!')
         return super().post(request, *args, **kwargs)
 
     def get_success_url(self):

@@ -66,8 +66,27 @@
                         <a href="{% url 'contact_page' %}" class="nav-item nav-link">Contact</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
+                        {% if user.is_authenticated %}
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle text-primary" data-toggle="dropdown">
+                                {{ user.username }}
+                            </a>
+                            <div class="dropdown-menu rounded-0 m-0">
+                                <a href="cart.html" class="dropdown-item">Sipraişlerim</a>
+                                <a href="checkout.html" class="dropdown-item">Hesabım</a>
+                                <hr>
+                                <form action="{% url 'user_logout' %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger w-100">Çıkış</button>
+                                </form>
+
+                            </div>
+                        </div>
+                        {% else %}
+                        <a href="#" class="fw-bold">{{ user.username }}</a>
                         <a href="" class="nav-item nav-link">Login</a>
                         <a href="" class="nav-item nav-link">Register</a>
+                        {% endif %}
                     </div>
                 </div>
             </nav>

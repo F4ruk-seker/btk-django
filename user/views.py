@@ -95,3 +95,12 @@ class UserCommentsView(LoginRequiredMixin, TemplateView):
         context['comments'] = Comment.objects.filter(user=self.request.user)
         return context
 
+
+class CommentDeleteView(LoginRequiredMixin, RegisterView):
+
+    def post(self, request, *args, **kwargs):
+        comment_id = request.POST.get('comment_id')
+        if comment := Comment.objects.filter(id=comment_id).first():
+            comment.delete()
+        return HttpResponseRedirect(reverse('comments'))
+

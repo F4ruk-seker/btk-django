@@ -13,6 +13,7 @@ urlpatterns: list = [
     path('', views.PanelView.as_view(), name='panel'),
     path('profile', views.ProfileView.as_view(), name='profile'),
     path('comments', views.UserCommentsView.as_view(), name='comments'),
+    path('comment/delete', views.CommentDeleteView.as_view(), name='delete_comment'),
 ]
 urlpatterns += auth_patterns
 

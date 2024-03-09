@@ -73,7 +73,7 @@
                             </a>
                             <div class="dropdown-menu rounded-0 m-0">
                                 <a href="cart.html" class="dropdown-item">Sipraişlerim</a>
-                                <a href="checkout.html" class="dropdown-item">Hesabım</a>
+                                <a href="{% url 'panel' %}">Hesabım</a>
                                 <hr>
                                 <form action="{% url 'user_logout' %}" method="post">
                                     {% csrf_token %}

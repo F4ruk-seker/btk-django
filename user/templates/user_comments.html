@@ -2,12 +2,50 @@
 
 
 {% block panel_title %}
-    Kullanıcı Profil Düzenleme Sayfası
+    Yorumlarım
 {% endblock %}
 
 {% block panel_context %}
 {% for comment in comments %}
-    {{comment}}
+<div class="order-summary clearfix">
+    <div class="title">
+        <h3 class="title">Comment List</h3>
+    </div>
+    <hr>
+    <table class="shopping-cart-table table">
+        <tr>
+            <th class="text-left">Product</th>
+            <th class="text-left">Rate</th>
+            <th class="text-left">Subject</th>
+            <th class="text-left">Comment</th>
+            <th class="text-left">Status</th>
+            <th class="text-left">Date</th>
+            <th class="text-left">Detail</th>
+        </tr>
+        {% for comment in comments %}
+            <tr>
+                <td class="text-left">
+                    <a href="/product/{{ comment.product_id }}/{{ comment.product.slug }}">
+                        <strong> {{ comment.product.title }}</strong>
+                    </a>
+                </td>
+                <td class="text-left">{{ comment.rate }} </td>
+                <td class="text-left">{{ comment.subject }} </td>
+                <td class="text-left">{{ comment.comment }} </td>
+                <td class="text-left">{{ comment.status }} </td>
+                <td class="text-left">{{ comment.create_at }} </td>
+                <td class="text-left">
+                    <form action="{% url 'delete_comment' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ comment.id }}" name="comment_id">
+                        <button class="btn btn-primary primary-btn" href="/user/deletecomment/{{ comment.id }}"
+                           onclick="return confirm('Will be Delete ! Are you sucomment?')"> Delete </button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
 {% empty %}
     Henüz Bir yorum yapmadınız
 {% endfor %}

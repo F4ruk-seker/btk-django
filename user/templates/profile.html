@@ -1,0 +1,16 @@
+{% extends 'panel.html' %}
+
+
+{% block panel_title %}
+    Kullanıcı Profil Düzenleme Sayfası
+{% endblock %}
+
+{% block panel_context %}
+<form method="post">
+    {% csrf_token %}
+    {{ user_update_form }}
+    {{ profile_update_form }}
+    <button class="btn btn-primary">Save</button>
+</form>
+{% endblock %}
+

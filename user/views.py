@@ -1,8 +1,12 @@
 from django.contrib.auth import logout, authenticate, login
-from django.views.generic import FormView, RedirectView
+from django.contrib.auth.views import PasswordChangeView
+from django.views.generic import FormView, RedirectView, TemplateView
 from django.urls import reverse
 from django.shortcuts import HttpResponseRedirect
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, UserUpdateForm, ProfileUpdateForm
+from .models import UserProfile
+from product.models import Comment
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class LoginView(FormView):
@@ -45,3 +49,49 @@ class LogoutView(RedirectView):
     def post(self, request, *args, **kwargs):
         logout(request)
         return HttpResponseRedirect('/')
+
+
+class PanelView(TemplateView):
+    template_name = 'main_panel.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(PanelView, self).get_context_data(**kwargs)
+        context['profile'] = UserProfile.objects.get(user=self.request.user)
+        return context
+
+
+class ProfileView(TemplateView, LoginRequiredMixin):
+    template_name = 'profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        context['profile'] = UserProfile.objects.get(user=self.request.user)
+        context['user_update_form'] = UserUpdateForm(instance=self.request.user)
+        context['profile_update_form'] = ProfileUpdateForm(instance=self.request.user.userprofile)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        user_update_form = UserUpdateForm(request.POST, instance=self.request.user)
+        profile_update_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.userprofile)
+
+        if user_update_form.is_valid():
+            user_update_form.save()
+        if profile_update_form.is_valid():
+            profile_update_form.save()
+
+        return HttpResponseRedirect(reverse('profile'))
+
+
+class UserPasswordChangeView(PasswordChangeView):
+    # LoginRequiredMixin
+    ...
+
+
+class UserCommentsView(LoginRequiredMixin, TemplateView):
+    template_name = 'user_comments.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments'] = Comment.objects.filter(user=self.request.user)
+        return context
+

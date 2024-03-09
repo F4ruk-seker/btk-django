@@ -1,0 +1,15 @@
+{% extends 'panel.html' %}
+
+
+{% block panel_title %}
+    Kullanıcı Profil Düzenleme Sayfası
+{% endblock %}
+
+{% block panel_context %}
+{% for comment in comments %}
+    {{comment}}
+{% empty %}
+    Henüz Bir yorum yapmadınız
+{% endfor %}
+{% endblock %}
+

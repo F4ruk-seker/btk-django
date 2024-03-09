@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block context %}
+
+{% include '_partial/topbar.html' %}
+
+<div class="container-fluid pt-5">
+    <div class="text-center mb-4">
+        <h2 class="section-title px-5"><span class="px-2">Login View</span></h2>
+    </div>
+    <div class="row px-xl-5 m-auto">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary" type="submit">Login</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

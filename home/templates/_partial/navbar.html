@@ -84,8 +84,8 @@
                         </div>
                         {% else %}
                         <a href="#" class="fw-bold">{{ user.username }}</a>
-                        <a href="" class="nav-item nav-link">Login</a>
-                        <a href="" class="nav-item nav-link">Register</a>
+                        <a href="{% url 'user_login'%}" class="nav-item nav-link">Login</a>
+                        <a href="{% url 'user_register'%}" class="nav-item nav-link">Register</a>
                         {% endif %}
                     </div>
                 </div>

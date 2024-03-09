@@ -1,17 +1,47 @@
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
 from django.views.generic import FormView, RedirectView
+from django.urls import reverse
 from django.shortcuts import HttpResponseRedirect
+from .forms import LoginForm, RegisterForm
 
 
 class LoginView(FormView):
-    ...
+    form_class = LoginForm
+    template_name = 'login.html'
+
+    def get_success_url(self):
+        return reverse('home_page')
+
+    def post(self, request, *args, **kwargs):
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            if user := authenticate(username=username, password=password):
+                if user.is_active:
+                    login(request, user)
+            else:
+                raise self.form_invalid(form)
+
+        return super(LoginView, self).post(request, *args, **kwargs)
 
 
 class RegisterView(FormView):
-    ...
+    form_class = RegisterForm
+    template_name = 'register.html'
+
+    def get_success_url(self):
+        return reverse('home_page')
+
+    def post(self, request, *args, **kwargs):
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+        super(RegisterView, self).post(request, *args, **kwargs)
 
 
 class LogoutView(RedirectView):
+
     def post(self, request, *args, **kwargs):
         logout(request)
         return HttpResponseRedirect('/')

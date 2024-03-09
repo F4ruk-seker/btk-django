@@ -52,7 +52,10 @@ INSTALLED_APPS = [
     # third party app
     'ckeditor',
     'ckeditor_uploader',
-    'mptt'
+    'mptt',
+
+    'crispy_forms',
+    'crispy_bootstrap5'
 ]
 
 MIDDLEWARE = [
@@ -132,4 +135,7 @@ CKEDITOR_IMAGE_BACKEND = 'pillow'
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
 # <script>alert(1)</script>
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 

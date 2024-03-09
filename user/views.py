@@ -104,3 +104,4 @@ class CommentDeleteView(LoginRequiredMixin, RegisterView):
             comment.delete()
         return HttpResponseRedirect(reverse('comments'))
 
+""

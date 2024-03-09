@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     # your apps
     'product',
     'home',
-    'user'
+    'user',
+    'order'
 ]+[
     # third party app
     'ckeditor',

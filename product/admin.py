@@ -1,7 +1,9 @@
 from django.contrib import admin
 from mptt.admin import DraggableMPTTAdmin
 
-from .models import Category, Product, Images
+from .models import Category, Product, Images, Comment
+admin.site.register(Comment)
+
 
 '''
 # admin.site.register(Category)
@@ -18,6 +20,7 @@ class CategoryAdmin(admin.ModelAdmin):
     # ordering = ['']
     #
 '''
+
 
 # admin.site.register(Category, CategoryAdmin)
 class CategoryAdmin2(DraggableMPTTAdmin):
@@ -78,6 +81,5 @@ class ProductAdmin(admin.ModelAdmin):
 class ImagesAdmin(admin.ModelAdmin):
     list_display = 'title', 'product', 'image_tag'
     readonly_fields = 'image_tag',
-
 
 

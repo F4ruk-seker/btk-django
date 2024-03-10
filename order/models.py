@@ -4,7 +4,7 @@ from typing import Any
 
 
 class Order(models.Model):
-    STATUS_CHOICES = (
+    STATUS_CHOICES: tuple = (
         ('New', 'New'),
         ('Accepted', 'Accepted'),
         ('Preparing', 'Preparing'),

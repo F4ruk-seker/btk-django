@@ -49,7 +49,7 @@ class Favorite(models.Model):
 class ShopCart(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     product = models.ForeignKey('product.Product', on_delete=models.SET_NULL, null=True)
-    quantity = models.IntegerField()
+    quantity = models.IntegerField(default=1)
 
     def __str__(self):
         return self.product.title
@@ -61,6 +61,15 @@ class ShopCart(models.Model):
     @property
     def amount(self) -> Any:
         return self.quantity * self.product.price
+
+    def increase(self):
+        self.quantity += 1
+        self.save()
+        
+    def decrease(self):
+        self.quantity -= 1
+        if self.quantity > 0:
+            self.save()
 
 
 class OrderProduct(models.Model):

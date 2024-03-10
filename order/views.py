@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from django.views.generic import RedirectView, ListView, DetailView, UpdateView, DeleteView, TemplateView
 from product.models import Product
 from order.models import Favorite, ShopCart
@@ -103,12 +104,30 @@ class ShopCartDetailView(LoginRequiredMixin, TemplateView):
             context['total'] = sum([_.amount for _ in context['shopcart']])
         return context
 
-    def post(self, request, *args, **kwargs):
-        if (task := request.POST.get('task')) and (product := request.POST.get('product')):
+    def get(self, request, *args, **kwargs):
+        product = kwargs.get('pk')
+        if task := kwargs.get('task'):
+            shop_cart = ShopCart.objects.filter(id=product, user=self.request.user).first()
             match task:
                 case 'delete':
-                    shop_cart = get_object_or_404(ShopCart, product_id=product, user=self.request.user)
                     shop_cart.delete()
-
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+                case 'increase':
+                    shop_cart.increase()
+                case 'decrease':
+                    shop_cart.decrease()
+                case 'add':
+                    if not shop_cart:
+                        queryset: dict = {
+                            'user': self.request.user,
+                            'product_id': product
+                        }
+                        if shop_cart := ShopCart.objects.filter(**queryset).first():
+                            shop_cart.increase()
+                        else:
+                            ShopCart.objects.create(**queryset)
+                        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+                case _:
+                    ...
+            return HttpResponseRedirect(reverse('shopocart'))
+        return super().get(request, *args, **kwargs)
 

@@ -9,3 +9,4 @@ urlpatterns: list = [
 
 urlpatterns.append(path("addtocart/<int:id>", views.addtocart, name="addtocart"))
 urlpatterns.append(path("shopcart", views.ShopCartDetailView.as_view(), name="shopocart"))
+urlpatterns.append(path("shopcart/<task>/<pk>", views.ShopCartDetailView.as_view(), name="shopocart-task"))

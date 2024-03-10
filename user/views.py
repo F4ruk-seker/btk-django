@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.shortcuts import HttpResponseRedirect
 from .forms import LoginForm, RegisterForm, UserUpdateForm, ProfileUpdateForm
 from .models import UserProfile
+from order.models import Order, OrderProduct
 from product.models import Comment
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -104,3 +105,24 @@ class CommentDeleteView(LoginRequiredMixin, RegisterView):
             comment.delete()
         return HttpResponseRedirect(reverse('comments'))
 
+
+class UserOrderView(LoginRequiredMixin, TemplateView):
+    template_name = 'user_order_products.html'
+
+    def get_context_data(self, **kwargs):
+        context: dict = super().get_context_data(**kwargs)
+        context['order_products'] = OrderProduct.objects.filter(user=self.request.user).order_by('-id')
+        print(context)
+        return context
+
+
+class UserOrderDetailView(LoginRequiredMixin, TemplateView):
+    template_name = 'user_order_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context: dict = super().get_context_data(**kwargs)
+
+        order = Order.objects.filter(user=self.request.user, id=kwargs.get('pk')).first()
+        context['order_product'] = OrderProduct.objects.filter(order=order)
+        context['order'] = order
+        return context

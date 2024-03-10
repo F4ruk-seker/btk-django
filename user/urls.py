@@ -14,6 +14,8 @@ urlpatterns: list = [
     path('profile', views.ProfileView.as_view(), name='profile'),
     path('comments', views.UserCommentsView.as_view(), name='comments'),
     path('comment/delete', views.CommentDeleteView.as_view(), name='delete_comment'),
+    path('orders/', views.UserOrderView.as_view(), name='orders'),
+    path('orders/<pk>', views.UserOrderDetailView.as_view(), name='orders_detail'),
 ]
 urlpatterns += auth_patterns
 

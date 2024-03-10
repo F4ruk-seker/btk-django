@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 from typing import Any
+from random import randint
+import string
 
 
 class Order(models.Model):
@@ -16,7 +18,7 @@ class Order(models.Model):
         ('rejected', 'Rejected'),
     )
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    code = models.CharField(max_length=5, editable=False)
+    code = models.CharField(max_length=5, editable=True)
 
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
@@ -34,8 +36,13 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def save(self, *args, **kwargs):
+        if not self.code:
+            self.code = ''.join(string.ascii_lowercase[randint(0, 9)] for _ in range(5))
+        super(Order, self).save(*args, **kwargs)
+
     def __str__(self):
-        return self.user.first_name
+        return f'{self.user.first_name} - {self.code}'
 
 
 class Favorite(models.Model):
@@ -65,7 +72,7 @@ class ShopCart(models.Model):
     def increase(self):
         self.quantity += 1
         self.save()
-        
+
     def decrease(self):
         self.quantity -= 1
         if self.quantity > 0:

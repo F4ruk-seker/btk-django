@@ -8,6 +8,7 @@ class ShopCartAdmin(admin.ModelAdmin):
     list_display = ['product','user','quantity','price','amount' ]
     list_filter = ['user']
 
+
 class FavoriteProductsAdmin(admin.ModelAdmin):
     list_display = ['product','user']
     list_filter = ['user']

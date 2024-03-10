@@ -87,9 +87,10 @@ def shopcart(request):
     total: float = 0.
     if shop_cart := ShopCart.objects.filter(user_id=current_user.id):
         total = sum([_.amount for _ in shop_cart])
-    context = {'shopcart': shop_cart,
-               'total': total,
-               }
+    context: dict = {
+            'shopcart': shop_cart,
+            'total': total,
+        }
     return render(request, 'shopcart_products.html', context)
 
 

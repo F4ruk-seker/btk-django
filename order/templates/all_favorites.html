@@ -1,0 +1,44 @@
+{% extends 'panel.html' %}
+
+
+{% block panel_title %}
+    Kullanıcı Profil Düzenleme Sayfası
+{% endblock %}
+
+{% block panel_context %}
+<!-- Cart Start -->
+<div class="container-fluid pt-5">
+    <div class="">
+        <div class="table-responsive mb-5">
+            <table class="table table-bordered text-center mb-0">
+                <thead class="bg-secondary text-dark">
+                <tr>
+                    <th>Products</th>
+                    <th>Remove</th>
+                </tr>
+                </thead>
+                <tbody class="align-middle">
+                {% for favorite in favoriteorites %}
+                    <tr>
+                        <td class="align-middle">
+                             <a href="{% url 'product-detail' favorite.product.slug %}">
+                                <img src="{{ favorite.product.image.url }}" alt="" style="width: 50px;">
+                            {{ favorite }}
+                             </a>
+                        </td>
+                        <td>
+                            <form method="post" action="{% url 'add_favoriteorites' %}">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{ favorite.product.id }}" name="product_id">
+                                <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-times"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

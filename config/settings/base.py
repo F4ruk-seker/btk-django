@@ -139,7 +139,7 @@ CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
-
+'''
 # settings.py
 import sentry_sdk
 
@@ -154,3 +154,4 @@ sentry_sdk.init(
     profiles_sample_rate=1.0,
 )
 
+'''

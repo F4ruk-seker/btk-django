@@ -2,4 +2,6 @@ from .models import Category
 
 
 def categories(request):
-    return {'categories': Category.objects.all()}
+    if categories := Category.objects.all():
+        return {'categories': categories}
+    return {'categories': None}

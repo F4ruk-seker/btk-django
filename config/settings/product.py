@@ -1,14 +1,17 @@
 from .base import *
 
-CSRF_TRUSTED_ORIGINS = [
-    f"https://{env('PRODUCT_HOST')}/",
-    f"https://{env('PRODUCT_API_HOST')}"
-]
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [env('PRODUCT_HOST'), env('PRODUCT_API_HOST')]
+if DEBUG:
+    CSRF_TRUSTED_ORIGINS: list = [f'http://{domain}' for domain in env.list('DJANGO_ALLOWED_HOSTS')]
+else:
+    CSRF_TRUSTED_ORIGINS: list = [f'https://{domain}' for domain in env.list('DJANGO_ALLOWED_HOSTS')]
+
+
+ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS')
 
 
 # Database
